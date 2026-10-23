@@ -4,6 +4,7 @@ import br.com.alura.screenmatch.principal.Principal;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class ScreenmatchApplication implements CommandLineRunner {
@@ -14,7 +15,11 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Principal principal = new Principal();
-		principal.exibeMenu();
+		principal().exibeMenu();
+	}
+
+	@Bean
+	Principal principal() {
+		return new Principal();
 	}
 }
