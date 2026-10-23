@@ -3,6 +3,7 @@ package br.com.alura.screenmatch.principal;
 import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.model.DadosTemporada;
 import br.com.alura.screenmatch.model.Episodio;
+import br.com.alura.screenmatch.model.Serie;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +26,7 @@ public class Principal {
     @Value("${OMDB_APIKEY}")
     private String API_KEY;
 
-    private final List<DadosSerie> series = new ArrayList<>();
+    private final List<Serie> series = new ArrayList<>();
 
     public void exibeMenu() {
         var menu = """
@@ -67,7 +68,8 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        series.add(dados);
+
+        series.add(new Serie(dados));
         System.out.println(dados);
     }
 
