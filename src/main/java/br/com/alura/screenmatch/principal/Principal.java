@@ -4,19 +4,19 @@ import br.com.alura.screenmatch.model.*;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
-import java.beans.BeanProperty;
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class Principal {
-
+@Component
+public class Principal implements CommandLineRunner {
     private Scanner leitura = new Scanner(System.in);
     private ConsumoApi consumo = new ConsumoApi();
     private ConverteDados conversor = new ConverteDados();
     private final String ENDERECO = "http://www.omdbapi.com/?t=%s&apikey=%s";
 
-    @Value("${OMDB_APIKEY}")
+    @Value("${OMDB_API_KEY}")
     private String API_KEY;
 
     private final List<Serie> series = new ArrayList<>();
@@ -107,5 +107,10 @@ public class Principal {
             temporadas.add(dadosTemporada);
         }
         temporadas.forEach(System.out::println);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        exibeMenu();
     }
 }
