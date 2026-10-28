@@ -1,19 +1,12 @@
 package br.com.alura.screenmatch.principal;
 
-import br.com.alura.screenmatch.model.DadosSerie;
-import br.com.alura.screenmatch.model.DadosTemporada;
-import br.com.alura.screenmatch.model.Episodio;
-import br.com.alura.screenmatch.model.Serie;
+import br.com.alura.screenmatch.model.*;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.beans.BeanProperty;
-import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -33,6 +26,7 @@ public class Principal {
                 1 - Buscar séries
                 2 - Buscar episódios
                 3 - Listar séries
+                4 - Listar séries por gênero
                 
                 0 - Sair
                 """;
@@ -53,6 +47,9 @@ public class Principal {
                 case 3:
                     listarSeries();
                     break;
+                case 4:
+                    listarSeriesPorGenero();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -64,6 +61,25 @@ public class Principal {
 
     private void listarSeries() {
         series.forEach(System.out::println);
+    }
+
+    private void listarSeriesPorGenero() {
+        List<Genero> generos = series.stream()
+                .flatMap(s -> s.getGenero().stream())
+                .distinct()
+                .toList();
+        System.out.println("Generos disponíveis:");
+        for (int i = 0; i < generos.size(); i++) {
+            System.out.println(i + ": " + generos.get(i));
+        }
+
+        var indiceGenero = leitura.nextInt();
+        leitura.nextLine();
+
+        var seriesGenero = series.stream()
+                .filter(s -> s.getGenero().contains(generos.get(indiceGenero)))
+                .toList();
+        seriesGenero.forEach(System.out::println);
     }
 
     private void buscarSerieWeb() {

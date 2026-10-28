@@ -25,6 +25,34 @@ public class Serie {
         this.atores = Arrays.stream(dadosSerie.atores().split(",")).toList();
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public Integer getTotalTemporadas() {
+        return totalTemporadas;
+    }
+
+    public Double getAvaliacao() {
+        return avaliacao;
+    }
+
+    public List<Genero> getGenero() {
+        return genero;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public String getSinopse() {
+        return sinopse;
+    }
+
+    public List<String> getAtores() {
+        return atores;
+    }
+
     @Override
     public String toString() {
         return "Serie{" +
